@@ -8,7 +8,20 @@ import re
 
 app=Flask(__name__)
 
-
+bot=ChatBot('JP', read_only=True,
+    storage_adapter="chatterbot.storage.SQLStorageAdapter",
+    input_adapter="chatterbot.input.VariableInputTypeAdapter",
+    output_adapter="chatterbot.output.OutputAdapter",
+    output_format="text",
+    database_uri='sqlite:///JP_db.db',
+    logic_adapters=[
+        {
+            'import_path': 'chatterbot.logic.BestMatch',
+            'default_response':'Lo siento, eso está fuera de mi enfoque. Pero puedes preguntarme algo sobre el coronavirus.',
+            'maximum_similarity_treshold':0.999999,
+        },
+    ]
+)
 
 
 
