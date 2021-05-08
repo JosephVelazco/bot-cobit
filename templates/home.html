@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>Bot Coronavirus</title>
+		<link href="https://file.myfontastic.com/DUtdwFq5TpfuCWokLrh8nW/icons.css" rel="stylesheet">
+		<style>
+		@import url('https://fonts.googleapis.com/css2?family=Abel&family=Lato&family=Neuton:wght@200&family=Open+Sans&family=Poppins:wght@400&family=Roboto&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+html
+{
+    scroll-behavior: smooth;
+}
+body
+{
+	background-color: linen;
+    min-height: 1000px;
+}
+header
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 100px;
+    z-index: 1000;
+    transition: 0.6s;
+}
+header.sticky
+{
+    padding: 5px 100px;
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+header .logo
+{
+    position: relative;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.6s;
+}
+header ul
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header ul li
+{
+    position: relative;
+    list-style: none;
+}
+header ul li a
+{
+    position: relative;
+    margin: 0 15px;
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: 2px;
+    font-weight: 300;
+    transition: 0.6s;
+}
+header.sticky .logo,
+header.sticky ul li a
+{
+    color: #000;
+}
+header .logo span,
+header ul li a:hover
+{
+	color: #DE1A1A;
+}
+.menuToggle
+{
+	display: none;
+}
+.current
+{
+	color: #DE1A1A !important;
+}
+.container-chat
+{
+	max-width: 600px !important;
+	margin: auto;
+	margin-top: 4%;
+	font-family: sans-serif;
+	letter-spacing: 0.5px;
+}
+img
+{
+	max-width: 100%;
+	border-radius: 50%;
+}
+.msg-header
+{
+	border: 1px solid #ccc;
+	width: 100%;
+	height: 10%;
+	border-bottom: none;
+	display: inline-block;
+	background-color: #DE1A1A;
+}
+.msg-header-img
+{
+	border-radius: 50%;
+	width: 60px;
+	margin-left: 5%;
+	margin-top: 35px;
+	float: left;
+}
+.active
+{
+	width: 450px;
+	float: left;
+}
+.active h3
+{
+	font-size: 30px;
+	color: #fff;
+	margin-top: 25px;
+}
+.active h6
+{
+	font-size: 17px;
+	margin-left: 10px;
+	line-height: 2px;
+	color: #fff;
+}
+.header-icons
+{
+	width: 120px;
+	float: right;
+	margin-top: 12px;
+	margin-right: 10px;
+}
+.header-icons i
+{
+	color: #fff;
+	cursor: pointer;
+	margin: 10px;
+}
+.chat-page
+{
+	padding: 0 0 50px 0;
+}
+.msg-inbox
+{
+	border: 1px solid #ccc;
+	overflow: hidden;
+	padding-bottom: 30px;
+	background: white;
+}
+.chats
+{
+	padding: 30px 15px 0 25px;
+}
+.msg-page
+{
+	height: 516px;
+	overflow-y: auto;
+}
+.received-chats-img
+{
+	display: inline-block;
+	width: 30px;
+	float: left;
+}
+.received-msg
+{
+	display: inline-block;
+	padding: 0 0 0 10px;
+	vertical-align: top;
+	width: 92%;
+}
+.received-msg-inbox
+{
+	width: 57%;
+}
+.received-msg-inbox p
+{
+	background: #efefef none repeat scroll 0 0;
+	border-radius: 10px;
+	color: #646464;
+	font-size: 14px;
+	margin: 0;
+	padding: 5px 10px 5px 12px;
+	width: 100%;
+}
+.time
+{
+	color: #777;
+	display: block;
+	font-size: 12px;
+	margin: 8px 0 0;
+}
+.outgoing-chats
+{
+	overflow: hidden;
+	margin: 26px 20px;
+}
+.outgoing-chats-msg p
+{
+	background: #DE1A1A none repeat scroll 0 0;
+	color: #fff;
+	border-radius: 10px;
+	font-size: 14px;
+	margin: 0;
+	color: #fff;
+	padding: 5px 10px 5px 12px;
+	width: 100%;
+}
+.outgoing-chats-msg
+{
+	float: left;
+	width: 45%;
+	margin-left: 47%;
+}
+.outgoing-chats-img
+{
+	display: inline-block;
+	width: 30px;
+	float: right;
+}
+.msg-bottom
+{
+	position: relative;
+	height: 70px;
+	background: #DE1A1A;
+}
+.input-group
+{
+	float: right;
+	margin-top: 13px;
+	margin-right: 20%;
+	outline: none !important;
+	border-radius: 20px;
+	width: 61% !important;
+	background-color: #fff;
+}
+.form-control
+{
+	border: none !important;
+	border-radius: 20px !important;
+	width: 96%;
+	height: 30px;
+}
+.input-group-text
+{
+	background: transparent !important;
+	border: none !important;
+}
+
+.input-group i
+{
+	color: #007bff;
+	float: right;
+}
+.bottom-icons
+{
+	float: left;
+	margin-top: 17px;
+	width: 30px !important;
+	margin-left: 22px;
+}
+
+.bottom-icons i
+{
+	color: #fff;
+	padding: 5px;
+}
+.form-control:focus
+{
+	border-color: none !important;
+	box-shadow: none !important;
+	border-radius: 20px;
+}
+footer
+{
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 50px 100px;
+    background: #111;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+footer .container1
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+footer .container1 .sec1
+{
+    margin-right: 30px;
+}
+footer .container1 .sec1.aboutus
+{
+    width: 40%;
+}
+footer .container1 h2
+{
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+footer .container1 h2:before
+{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #111;
+}
+footer p
+{
+    color: #999;
+}
+.sci
+{
+    margin-top: 20px;
+    display: flex;
+}
+.sci li
+{
+    list-style: none;
+}
+.sci li a
+{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.sci li a:hover
+{
+    background: #111;
+}
+.sci li a i
+{
+    color: #fff;
+    font-size: 20px;
+}
+.quickLinks
+{
+    position: relative;
+    width: 25%;
+}
+.quickLinks ul li
+{
+    list-style: none;
+}
+.quickLinks ul li a
+{
+    color: #999;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.quickLinks ul li a.here
+{
+    color: #fff;
+}
+.quickLinks ul li a:hover
+{
+    color: #fff;
+}
+.contact
+{
+    width: calc(35% - 60px);
+    margin-right: 0 !important;
+}
+.contact .info
+{
+    position: relative;
+}
+.contact .info li
+{
+    display: flex;
+    margin-bottom: 16px;
+}
+.contact .info li span:nth-child(1)
+{
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.contact .info li span
+{
+    color: #999;
+}
+.contact .info li a
+{
+    color: #999;
+    text-decoration: none;
+}
+.contact .info li a:hover
+{
+    color: #fff;
+}
+.copyrightText
+{
+    width: 100%;
+    background: #181818;
+    padding: 8px 100px;
+    text-align: center;
+    color: #999;
+}
+@media (max-width: 768px)
+{
+    footer
+    {
+        padding: 40x;
+    }
+    footer .contaner1
+    {
+        flex-direction: column;
+    }
+    footer .container1 .sec1
+    {
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+    footer .container1 .sec1.aboutus,
+    .quickLinks,
+    .contact
+    {
+        width: 100%;
+    }
+    .copyrigthText
+    {
+        padding: 8px 40px;
+    }
+}
+@media (max-width: 992px)
+{
+	.menuToggle
+	{
+		display: block;
+		position: relative;
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		justify-content: center;
+		align-items: center;
+		font-size: 30px;
+		color: #333;
+	}
+    header,
+    header.sticky
+    {
+        padding: 10px 20px;
+        background: #fff;
+    }
+    header ul
+    {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        overflow: auto;
+        background: #fff;
+        visibility: hidden;
+        opacity: 0;
+    }
+    header.active ul
+    {
+        visibility: visible;
+        opacity: 1;
+        display: block;
+        padding-top: 20px;
+    }
+    header.active ul li a
+    {
+        display: inline-block;
+        margin: 10px 0;
+        font-size: 20px;
+    }
+    header .logo,
+    header ul li a
+    {
+        color: #000;
+    }
+}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<header id="header" class="sticky">
+        	<a href="https://cobit19.herokuapp.com/" class="logo">Co<span>bit</span>19</a>
+        	<div class="icon-menu menuToggle" id="menu"></div>
+    	</header>
+		<div class="container-chat">
+			<div class="msg-header">
+				<div class="msg-header-img">
+					<img src="https://techcetera.co/wp-content/uploads/2018/06/bot-icon-1-700x700.jpg">
+				</div>
+				<div class="active">
+					<h3>Chatbot sobre coronavirus</h3>
+					<h6>Siempre activo</h6>
+				</div>
+			</div>
+				<div class="chat-page">
+					<div class="msg-inbox">
+						<div class="chats">
+							<div class="msg-page" id="chatbox">
+							
+								<div class='received-chats'>
+									<div class='received-chats-img'>
+										<img src='https://techcetera.co/wp-content/uploads/2018/06/bot-icon-1-700x700.jpg'>
+									</div>
+									<div class='received-msg'>
+										<div class='received-msg-inbox'>
+											<p>Saludos, mi nombre es JP, ¿qué dudas tiene sobre el coronavirus?</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="msg-bottom">
+						<div class="input-group" id="userInput">
+							<input id="textInput" type="text" name="msg" placeholder="Mensaje" class="form-control">
+							<div class="input-group-append">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer>
+       <div class="container1">
+           <div class="sec1 aboutus">
+               <h2>S&iacute;gueme</h2>
+               <p><i>"El buen medico trata la enfermedad; el gran medico trata al paciente que tiene la enfermedad"</i><br>- William Osler</p>
+               <ul class="sci">
+                   <li><a href="https://www.facebook.com/ConsultorioDrMaruri"><i class="icon-facebook"></i></a></li>
+               </ul>
+           </div>
+           <div class="sec1 quickLinks">
+               <h2>Enlaces</h2>
+               <ul>
+                   <li><a href="#" class="here">Chat-Bot</a></li>
+                   <li><a href="https://cobit19.herokuapp.com/">Realidad Aumentada</a></li>
+                   <li><a href="https://cobit19.herokuapp.com/">Agendar Cita</a></li>
+                   <li><a href="https://cobit19.herokuapp.com/">Test Covid-19</a></li>
+               </ul>
+           </div>
+           <div class="sec1 contact">
+               <h2>Informaci&oacute;n de Contacto</h2>
+               <ul class="info">
+                   <li>
+                       <span><i class="icon-map-marker"></i></span>
+                       <span>Av. Cordillera de los Andes 1516 L-3,<br> Col. Pase de los Andes, San Nicolás de los Garza, Nuevo León, México</span>
+                   </li>
+                   <li>
+                       <span><i class="icon-phone"></i></span>
+                       <p><a href="tel:83837834">83-83-78-34</a></p>
+                   </li>
+                   <li>
+                       <span><i class="icon-envelope"></i></span>
+                       <p><a href="mailto:drfidelmaruri@hotmail.com">drfidelmaruri@hotmail.com</a></p>
+                   </li>
+               </ul>
+           </div>
+       </div>
+</footer>
+<div class="copyrightText">
+    <p>Copyright &copy; 2021 <strong>Cobit19</strong>. Todos los derechos reservados.</p>
+</div>
+<script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = "<div class='outgoing-chats'><div class='outgoing-chats-msg'><p>" + rawText + "</p></div><div class='outgoing-chats-img'><img src='https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg'></div></div>";
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = "<div class='received-chats'><div class='received-chats-img'><img src='https://techcetera.co/wp-content/uploads/2018/06/bot-icon-1-700x700.jpg'></div><div class='received-msg'><div class='received-msg-inbox'><p>" + data + "</p></div></div></div>";
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+        }
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+      </script>
+	</body>
+</html>
