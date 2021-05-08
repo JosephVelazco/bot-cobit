@@ -8,22 +8,8 @@ import re
 
 app=Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL') or 'sqlite:///JP_db.db'
 
-bot=ChatBot('JP', read_only=True,
-    storage_adapter="chatterbot.storage.SQLStorageAdapter",
-    input_adapter="chatterbot.input.VariableInputTypeAdapter",
-    output_adapter="chatterbot.output.OutputAdapter",
-    output_format="text",
-    database_uri='postgres://olpjyittihdovq:14aefecfcecb9dce49d98e17258370385174ede2c99cb1c71aeefc0a0d0e6634@ec2-52-87-107-83.compute-1.amazonaws.com:5432/d9m6u0kb0c771v',
-    logic_adapters=[
-        {
-            'import_path': 'chatterbot.logic.BestMatch',
-            'default_response':'Lo siento, eso está fuera de mi enfoque. Pero puedes preguntarme algo sobre el coronavirus.',
-            'maximum_similarity_treshold':0.999999,
-        },
-    ]
-)
+
 
 
 @app.route("/")
