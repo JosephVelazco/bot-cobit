@@ -13,7 +13,7 @@ bot=ChatBot('JP', read_only=True,
     input_adapter="chatterbot.input.VariableInputTypeAdapter",
     output_adapter="chatterbot.output.OutputAdapter",
     output_format="text",
-    database_uri='sqlite:///JP_db.db',
+    database_uri='postgres://olpjyittihdovq:14aefecfcecb9dce49d98e17258370385174ede2c99cb1c71aeefc0a0d0e6634@ec2-52-87-107-83.compute-1.amazonaws.com:5432/d9m6u0kb0c771v',
     logic_adapters=[
         {
             'import_path': 'chatterbot.logic.BestMatch',
